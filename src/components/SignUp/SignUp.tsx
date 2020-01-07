@@ -37,7 +37,7 @@ class SignUp extends React.Component<any, ISignUpState> {
                 password,
                 password_confirmation: passwordConformation,
             });
-            console.log("成功");
+            this.props.history.push('/');
         } catch (e) {
             throw new Error(e)
         }
@@ -64,7 +64,7 @@ class SignUp extends React.Component<any, ISignUpState> {
                     placeholder="请确认密码"
                     onChange={this.onChangePasswordConformation}
                 />
-                <Button type='primary' className="loginButton" onClick={this.submit}>注册</Button>
+                <Button type='primary' className="signUpButton" onClick={this.submit}>注册</Button>
                 <p>如果你有账号，请立即<Link to='/login'>登录</Link></p>
             </div>
         );
