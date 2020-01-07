@@ -1,4 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
+import history from './history'
+
 
 const appId = "X15i835PMDNsPcMdod2p9oVk";
 const appSecret = "pF2WqLKSwGQCrHKdzDwZpdov";
@@ -34,6 +36,10 @@ instance.interceptors.response.use((response) => {
     }
     return response;
 }, (error) => {
+    if (error.response.status === 401) {
+        history.push('/login');
+        console.log("重定向");
+    }
     // 对响应错误做点什么
     return Promise.reject(error);
 });
