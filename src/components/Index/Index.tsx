@@ -20,14 +20,9 @@ class Index extends React.Component<any, IIndexState> {
     };
 
     getMe = async () => {
-        try {
+        {
             const response = await axios.get('me');
             this.setState({user: response.data});
-            console.log(response);
-        } catch (e) {
-            // if (e.response.status === 401) {
-            //     this.props.history.push('/login')
-            // }
         }
     };
 
