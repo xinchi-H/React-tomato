@@ -49,8 +49,8 @@ class Login extends React.Component<any, ILoginState> {
                     onChange={(e) => this.onChange('account', e.target.value)}
                 />
                 <Input.Password
-                    value={password}
                     placeholder="请输入密码"
+                    value={password}
                     onChange={(e) => this.onChange('password', e.target.value)}
                 />
                 <Button type='primary' className="loginButton" onClick={this.submit}>登录</Button>
