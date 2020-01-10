@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Checkbox, Icon} from "antd";
+import './TodoItem.scss'
 
 interface ITodoItemProps {
     id: number;
