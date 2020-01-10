@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Checkbox, Icon} from "antd";
+import classNames from 'classnames'
 import './TodoItem.scss'
 
 interface ITodoItemProps {
@@ -52,9 +53,14 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
                 </div>
             </div>
         );
-        const Text = <span onDoubleClick={this.toEditing}>{this.props.description}</span>;
+        const Text = <span className="text" onDoubleClick={this.toEditing}>{this.props.description}</span>;
+        const todoItemClass = classNames({
+            TodoItem : true,
+            completed: this.props.completed,
+            editing: this.props.editing,
+        });
         return (
-            <div className='TodoItem' id='TodoItem'>
+            <div className={todoItemClass} id='TodoItem'>
                 <Checkbox checked={this.props.completed}
                           onChange={e => this.update({completed: e.target.checked})}
                 />
