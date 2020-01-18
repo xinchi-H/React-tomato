@@ -18,8 +18,8 @@ class Login extends React.Component<any, ILoginState> {
         }
     }
 
-    onChange = (key: keyof ILoginState, value:string) => {
-        const newState ={};
+    onChange = (key: keyof ILoginState, value: string) => {
+        const newState = {};
         newState[key] = value;
         this.setState(newState)
     };
@@ -37,7 +37,7 @@ class Login extends React.Component<any, ILoginState> {
         }
     };
 
-    render() {
+    public render() {
         const {account, password} = this.state;
         return (
             <div className='Login' id="Login">

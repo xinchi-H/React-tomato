@@ -28,7 +28,7 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
 
     postTodo = async () => {
         try {
-            const response = await axios.post('todos', {description: this.state.description})
+            const response = await axios.post('todos', {description: this.state.description});
             this.props.addTodo(response.data.resource)
         } catch (e) {
             throw new Error(e)
@@ -36,7 +36,7 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
         this.setState({description: ''})
     };
 
-    render() {
+    public render() {
         const {description} = this.state;
         const suffix = description ? <Icon type="enter" onClick={this.postTodo}/> : <span/>;
         return (

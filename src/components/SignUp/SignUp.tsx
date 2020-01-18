@@ -21,7 +21,7 @@ class SignUp extends React.Component<any, ISignUpState> {
     }
 
     onChangeAccount = (e) => {
-        this.setState({ account: e.target.value });
+        this.setState({account: e.target.value});
     };
     onChangePassword = (e) => {
         this.setState({password: e.target.value})
@@ -43,7 +43,7 @@ class SignUp extends React.Component<any, ISignUpState> {
         }
     };
 
-    render() {
+    public render() {
         const {account, password, passwordConformation} = this.state;
         return (
             <div className='SignUp' id="SignUp">
