@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {Dropdown, Icon, Menu} from "antd";
-import Todos from 'src/components/Todos/Todos'
-import axios from 'src/config/axios'
+import Todos from 'src/components/Todos/Todos';
+import Tomatoes from "src/components/Tomatoes/Tomatoes";
+import axios from 'src/config/axios';
 import history from "../../config/history";
-import './Home.scss'
+import './Home.scss';
 
 interface IIndexState {
     user: any
@@ -54,6 +55,7 @@ class Home extends React.Component<any, IIndexState> {
                     </Dropdown>
                 </header>
                 <main>
+                    <Tomatoes/>
                     <Todos/>
                 </main>
             </div>

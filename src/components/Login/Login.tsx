@@ -23,6 +23,13 @@ class Login extends React.Component<any, ILoginState> {
         newState[key] = value;
         this.setState(newState)
     };
+
+    onKeyUp = (e) => {
+        if (e.keyCode === 13 && this.state.account !== '' && this.state.password !== '') {
+            this.submit()
+        }
+    };
+
     submit = async () => {
         const {account, password} = this.state;
         try {
@@ -52,6 +59,7 @@ class Login extends React.Component<any, ILoginState> {
                     placeholder="请输入密码"
                     value={password}
                     onChange={(e) => this.onChange('password', e.target.value)}
+                    onKeyUp={this.onKeyUp}
                 />
                 <Button type='primary' className="loginButton" onClick={this.submit}>登录</Button>
                 <p>如果你没有账号，请立即<Link to='/signUp'>注册</Link></p>
