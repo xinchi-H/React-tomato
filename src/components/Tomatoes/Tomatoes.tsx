@@ -1,14 +1,15 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import axios from "../../config/axios";
-import {addTomato, initTomatoes} from "../../redux/actions/tomatoes";
+import {addTomato, initTomatoes, updateTomato} from "../../redux/actions/tomatoes";
 import TomatoAction from './TomatoAction';
 import './Tomatoes.scss'
 
 interface ITomatoesProps {
     addTomato: (payload: any) => any;
-    initTomatoes: (payload: any[])=>any;
+    initTomatoes: (payload: any[]) => any;
     tomatoes: any[];
+    updateTomato: (payload: any) => any;
 }
 
 class Tomatoes extends React.Component<ITomatoesProps> {
@@ -16,7 +17,7 @@ class Tomatoes extends React.Component<ITomatoesProps> {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getTomatoes()
     }
 
@@ -46,7 +47,8 @@ class Tomatoes extends React.Component<ITomatoesProps> {
         return (
             <div className='Tomatoes' id="Tomatoes">
                 <TomatoAction startTomato={this.startTomato}
-                              unfinishedTomato={this.unfinishedTomato}/>
+                              unfinishedTomato={this.unfinishedTomato}
+                              updateTomato={this.props.updateTomato}/>
             </div>
         );
     }
@@ -60,6 +62,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
     addTomato,
     initTomatoes,
+    updateTomato,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tomatoes)

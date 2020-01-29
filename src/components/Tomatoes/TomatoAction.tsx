@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {Button, Input} from "antd";
+import {Button, Input, Icon} from "antd";
 import axios from 'src/config/axios';
 import CountDown from './CountDown';
 
 interface ITomatoActionProps {
     startTomato: () => void;
     unfinishedTomato: any;
+    updateTomato: (payload: any) => void;
 }
 
 interface ITomatoActionState {
@@ -34,8 +35,8 @@ class TomatoAction extends React.Component<ITomatoActionProps, ITomatoActionStat
                     description: this.state.description,
                     ended_at: new Date()
                 });
+            this.props.updateTomato(response.data.resource);
             this.setState({description: ''});
-            console.log(response)
         } catch (e) {
             throw new Error(e)
         }
@@ -59,9 +60,11 @@ class TomatoAction extends React.Component<ITomatoActionProps, ITomatoActionStat
                            onChange={e => this.setState({description: e.target.value})}
                            onKeyUp={e => this.onKeyUp(e)}
                     />
+                    <Icon type="close-circle"/>
                 </div>
             } else if (timeNow - startedAt < duration) {
-                html = <CountDown/> // 倒计时
+                const timer = duration - timeNow + startedAt;
+                html = <CountDown timer={timer}/> // 倒计时
             }
         }
 
