@@ -12,10 +12,25 @@
     ]
   },
   "rules": {
-    "ordered-imports": [false],
-    "member-access": [false],
-    "no-console": [false],
-    "only-arrow-functions": [false],
-    "jsx-no-lambda": [false]
+    "ordered-imports": [
+      false
+    ],
+    "member-access": [
+      false
+    ],
+    "no-console": [
+      false
+    ],
+    "only-arrow-functions": [
+      false
+    ],
+    "jsx-no-lambda": [
+      false
+    ],
+    "variable-name": [
+      true,
+      "allow-pascal-case",
+      "allow-snake-case"
+    ]
   }
 }

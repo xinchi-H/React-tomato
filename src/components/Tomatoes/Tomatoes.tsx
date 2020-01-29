@@ -7,6 +7,7 @@ import './Tomatoes.scss'
 
 interface ITomatoesProps {
     addTomato: (payload: any) => any;
+    initTomatoes: (payload: any[])=>any;
     tomatoes: any[];
 }
 
@@ -26,7 +27,7 @@ class Tomatoes extends React.Component<ITomatoesProps> {
     getTomatoes = async () => {
         try {
             const response = await axios.get('tomatoes');
-            console.log(response.data);
+            this.props.initTomatoes(response.data.resources);
         } catch (e) {
             throw new Error(e)
         }
