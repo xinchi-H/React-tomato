@@ -10,7 +10,7 @@ const TomatoItem = function (props) {
     return (
         <div className='TomatoItem'>
             <span className='timeRange'>{format(props.started_at, 'H:mm')}
-            -{format(props.ended_at, 'H:mm')}</span>
+                -{format(props.ended_at, 'H:mm')}</span>
             <span className='description'>{props.description}</span>
         </div>
     )
@@ -23,7 +23,8 @@ class TomatoList extends React.Component<ITomatoListProps> {
 
     get dates() {
         const dates = Object.keys(this.props.finishedTomatoes);
-        return dates.sort((a, b) => Date.parse(b) - Date.parse(a)).splice(0,4)
+        return dates.sort((a, b) =>
+            Date.parse(b) - Date.parse(a)).splice(0, 4)
     }
 
     render() {
@@ -32,7 +33,7 @@ class TomatoList extends React.Component<ITomatoListProps> {
             return (
                 <div key={d} className='dailyTomatoes'>
                     <div className="title">
-                        <span className='dateTime'>{format(d,'M月DD日')}</span>
+                        <span className='dateTime'>{format(d, 'M月DD日')}</span>
                         <span className='finishedCount'>完成了{tomatoes.length}个番茄</span>
                     </div>
                     {
