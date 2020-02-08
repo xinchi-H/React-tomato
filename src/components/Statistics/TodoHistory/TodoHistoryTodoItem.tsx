@@ -69,5 +69,4 @@ const mapDispatchToProps = {
     updateTodo,
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(TodoHistoryTodoItem);

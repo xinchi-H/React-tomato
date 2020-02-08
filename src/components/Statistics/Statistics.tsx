@@ -6,7 +6,6 @@ import Polygon from './Polygon';
 import TodoHistory from "./TodoHistory/TodoHistory";
 import './Statistics.scss';
 
-
 interface IStatisticsProps {
     todos: any[];
 }
