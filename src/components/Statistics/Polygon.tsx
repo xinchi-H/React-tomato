@@ -5,7 +5,6 @@ interface IPolygonProps {
     totalFinishedCount: number;
 }
 
-
 class Polygon extends React.Component<IPolygonProps> {
     constructor(props) {
         super(props);
