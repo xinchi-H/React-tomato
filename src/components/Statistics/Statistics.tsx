@@ -53,8 +53,8 @@ class Statistics extends React.Component<IStatisticsProps, IState> {
         })
     }
 
-    toggleActivePane(index){
-        if(this.state.activeId!==index){
+    toggleActivePane(index) {
+        if (this.state.activeId !== index) {
             this.setState({
                 activeId: index
             })
@@ -88,7 +88,8 @@ class Statistics extends React.Component<IStatisticsProps, IState> {
         return (
             <div className='Statistics' id='Statistics'>
                 <ul ref={ulNode => this.ulNode = ulNode}>
-                    <li className={this.state.activeId === 0 ? 'active': '' } onClick={this.toggleActivePane.bind(this,0)}>
+                    <li className={this.state.activeId === 0 ? 'active' : ''}
+                        onClick={this.toggleActivePane.bind(this, 0)}>
                         <div className='desc'>
                             <span className="title">番茄历史</span>
                             <span className='subtitle'>累计完成番茄</span>
@@ -100,7 +101,8 @@ class Statistics extends React.Component<IStatisticsProps, IState> {
                             />
                             : null}
                     </li>
-                    <li ref={li => this.liNode = li} className={this.state.activeId === 1 ? 'active': '' } onClick={this.toggleActivePane.bind(this,1)}>
+                    <li ref={li => this.liNode = li} className={this.state.activeId === 1 ? 'active' : ''}
+                        onClick={this.toggleActivePane.bind(this, 1)}>
                         <div className='desc'>
                             <span className="title">任务历史</span>
                             <span className='subtitle'>累计完成任务</span>

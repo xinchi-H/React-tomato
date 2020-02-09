@@ -3,7 +3,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {updateTomato} from "../../../redux/actions/tomatoes";
 import axios from 'src/config/axios';
-// import './TomatoHistoryTomatoItem.scss';
+import './TomatoHistoryTomatoItem.scss';
 
 interface ITomatoHistoryTomatoItemProps {
     tomato: any;
