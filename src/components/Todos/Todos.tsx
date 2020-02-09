@@ -28,11 +28,11 @@ class Todos extends React.Component<any> {
                 <TodoInput/>
                 <div className="todoLists">
                     {
-                        this.unCompletedTodos.map(t=>
+                        this.unCompletedTodos.map(t =>
                             <TodoItem key={t.id} {...t}/>)
                     }
                     {
-                        this.completedTodos.map(t=>
+                        this.completedTodos.map(t =>
                             <TodoItem key={t.id} {...t}/>)
                     }
                 </div>

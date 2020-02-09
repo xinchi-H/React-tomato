@@ -1,10 +1,11 @@
+import {Tabs} from "antd";
+import {format} from "date-fns";
+import dayJs from 'dayjs';
+import _ from "lodash";
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {format} from "date-fns";
-import {Tabs} from "antd";
-import TodoHistoryTodoItem from "./TodoHistoryTodoItem";
-import _ from "lodash";
 import './TodoHistory.scss'
+import TodoHistoryTodoItem from "./TodoHistoryTodoItem";
 
 const {TabPane} = Tabs;
 
@@ -37,13 +38,14 @@ class TodoHistory extends React.Component <ITodoHistoryProps> {
     }
 
     render() {
+        const week = ['周日','周一','周二','周三','周四','周五','周六'];
         const finishedTodoList = this.finishedDates.map(date => {
                 return (
                     <div key={date} className='dailyTodos'>
                         <div className='summary'>
                             <p className="date">
                                 <span>{date}</span>
-                                <span>周五</span>
+                                <span>{week[dayJs(date).format('d')]}</span>
                             </p>
                             <p className='finishedCount'>
                                 完成了{this.dailyFinishedTodos[date].length}个任务
