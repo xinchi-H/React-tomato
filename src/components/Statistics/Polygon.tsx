@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface IPolygonProps {
     data: any;
-    totalFinishedCount: number;
+    width: number,
 }
 
 class Polygon extends React.Component<IPolygonProps> {
@@ -10,35 +10,32 @@ class Polygon extends React.Component<IPolygonProps> {
         super(props);
     }
 
-    point = () => {
-        const dates = Object.keys(this.props.data).sort((a, b) => {
-            return Date.parse(a) - Date.parse(b)
-        });
-        const firstDay = dates[0];
-        if (firstDay) {
-            const range = new Date().getTime() - Date.parse(firstDay);
-            let finishedCount = 0;
-            let finishedY = 0;
-            const pointArr = dates.map(date => {
-                const x = (Date.parse(date) - Date.parse(firstDay)) / range * 240;
-                finishedCount += this.props.data[date].length;
-                const y = (1 - (finishedCount / this.props.totalFinishedCount)) * 60;
-                finishedY = y;
-                return `${x},${y}`
-            });
-            return ['0,60', ...pointArr, `240,${finishedY}`, '240,60'].join(' ')
-        } else {
-            return "0,60 240,60 0,60"
-        }
+    getPoint = (props:IPolygonProps)=>{
+        const dates = Object.keys(props.data);
+        const YRange = dates.reduce((a,b)=>props.data[b].length> a ? props.data[b].length : a ,0);
+        const {width} = props;
+        const XRange = new Date().getTime() - Date.parse(dates[dates.length-1]);
+        let lastXPoint = 0;
+        const points = dates.reduce((a,date)=>{
+            const x = (new Date().getTime() - Date.parse(date))/ XRange * width;
+            const y = (1 - props.data[date].length/YRange) * 60;
+            lastXPoint = x;
+            return a.concat(` ${x},${y}`)
+        },'0,60');
+        return points.concat(` ${lastXPoint},60`)
     };
 
     render() {
         return (
             <div className='Polygon' id='Polygon'>
-                <svg>
+                <svg
+                    width="100%"
+                    height="60"
+                    preserveAspectRatio="none"
+                >
                     <polygon fill="rgba(215,78,78,0.1)" stroke="rgba(215,78,78,0.5)"
                              strokeWidth="1"
-                             points={this.point()}/>
+                             points={this.getPoint(this.props)}/>
                 </svg>
             </div>
         );

@@ -38,7 +38,7 @@ class TodoHistory extends React.Component <ITodoHistoryProps> {
     }
 
     render() {
-        const week = ['周日','周一','周二','周三','周四','周五','周六'];
+        const week = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
         const finishedTodoList = this.finishedDates.map(date => {
                 return (
                     <div key={date} className='dailyTodos'>
@@ -71,7 +71,7 @@ class TodoHistory extends React.Component <ITodoHistoryProps> {
             }
         );
         return (
-            <Tabs defaultActiveKey="1">
+            <Tabs defaultActiveKey="1" className='TodoHistoryWrapper'>
                 <TabPane tab="已完成任务" key="1">
                     <div className='TodoHistory' id='TodoHistory'>
                         {finishedTodoList}
