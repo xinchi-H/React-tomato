@@ -1,4 +1,4 @@
-import {Tabs} from "antd";
+import {Tabs, Pagination} from "antd";
 import {format} from "date-fns";
 import dayJs from 'dayjs';
 import _ from "lodash";
@@ -13,9 +13,18 @@ interface ITomatoHistoryProps {
     tomatoes: any[];
 }
 
-class TomatoHistory extends React.Component<ITomatoHistoryProps> {
+class TomatoHistory extends React.Component<ITomatoHistoryProps, any> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentPage: 1,
+            abortedCurrentPage: 1
+        }
+    }
+
     get finishedTomatoes() {
-        return this.props.tomatoes.filter(t => t.ended_at && !t.aborted)
+        return this.props.tomatoes.filter(t => !t.aborted)
+            .filter(t => t.description && t.ended_at)
     }
 
     get abortedTomatoes() {
@@ -23,8 +32,8 @@ class TomatoHistory extends React.Component<ITomatoHistoryProps> {
     }
 
     get dailyFinishedTomatoes() {
-        return _.groupBy(this.finishedTomatoes, (tomato) => {
-            return format(tomato.ended_at, 'YYYY-MM-D')
+        return _.groupBy(this.finishedTomatoes, (t) => {
+            return format(t.ended_at, 'YYYY-MM-D')
         })
     }
 
@@ -33,13 +42,18 @@ class TomatoHistory extends React.Component<ITomatoHistoryProps> {
             Date.parse(a))
     }
 
-    constructor(props) {
-        super(props)
-    }
+    togglePage = (currentPage: number) => {
+        this.setState({currentPage})
+    };
+
+    toggleAbortedPage = (abortedCurrentPage: number) => {
+        this.setState({abortedCurrentPage})
+    };
 
     render() {
         const week = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-        const finishedTomatoList = this.finishedDates.map(date => {
+        const {currentPage} = this.state;
+        const finishedTomatoList = this.finishedDates.slice((currentPage - 1) * 3, currentPage * 3).map(date => {
                 return (
                     <div key={date} className='dailyTomatoes'>
                         <div className='summary'>
@@ -64,7 +78,8 @@ class TomatoHistory extends React.Component<ITomatoHistoryProps> {
                 )
             }
         );
-        const abortedTomatoesList = this.abortedTomatoes.map(tomato => {
+        const {abortedCurrentPage} = this.state;
+        const abortedTomatoesList = this.abortedTomatoes.slice((abortedCurrentPage - 1) * 15, abortedCurrentPage * 15).map(tomato => {
                 return (
                     <TomatoHistoryTomatoItem key={tomato.id} tomato={tomato} itemType='aborted'/>
                 )
@@ -75,11 +90,42 @@ class TomatoHistory extends React.Component<ITomatoHistoryProps> {
                 <TabPane tab="已完成番茄闹钟" key="1">
                     <div className='TomatoHistory' id='TomatoHistory'>
                         {finishedTomatoList}
+                        <div className='Pagination_wrapper'>
+                            <Pagination
+                                size="small"
+                                defaultCurrent={1}
+                                pageSize={3}
+                                hideOnSinglePage={true}
+                                total={Object.keys(this.dailyFinishedTomatoes).length}
+                                current={this.state.currentPage}
+                                onChange={this.togglePage}/>
+                            <span className='tips'>
+                                总计{
+                                Object.keys(this.dailyFinishedTomatoes)
+                                    .reduce((a, b) => a + this.dailyFinishedTomatoes[b].length, 0)
+                            }个番茄闹钟
+                            </span>
+                        </div>
                     </div>
                 </TabPane>
                 <TabPane tab="打断的番茄" key="2">
                     <div className='TomatoHistory' id='TomatoHistory'>
                         {abortedTomatoesList}
+                        <div className='Pagination_wrapper'>
+                            <Pagination
+                                size="small"
+                                defaultCurrent={1}
+                                pageSize={15}
+                                hideOnSinglePage={true}
+                                total={Object.keys(this.abortedTomatoes).length}
+                                current={this.state.abortedCurrentPage}
+                                onChange={this.toggleAbortedPage}/>
+                            <span className='tips'>
+                                总计{
+                                this.abortedTomatoes.length
+                            }个番茄闹钟
+                            </span>
+                        </div>
                     </div>
                 </TabPane>
             </Tabs>

@@ -33,5 +33,13 @@
         flex: 1;
       }
     }
+    .Pagination_wrapper{
+      display: flex;
+      margin: 32px 0 16px;
+      .tips{
+        color: #888;
+        margin-left: auto;
+      }
+    }
   }
 }

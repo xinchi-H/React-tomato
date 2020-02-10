@@ -1,4 +1,4 @@
-import {Tabs} from "antd";
+import {Tabs, Pagination} from "antd";
 import {format} from "date-fns";
 import dayJs from 'dayjs';
 import _ from "lodash";
@@ -13,7 +13,15 @@ interface ITodoHistoryProps {
     todos: any[];
 }
 
-class TodoHistory extends React.Component <ITodoHistoryProps> {
+class TodoHistory extends React.Component <ITodoHistoryProps, any> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentPage: 1,
+            deletedCurrentPage: 1
+        }
+    }
+
     get finishedTodos() {
         return this.props.todos.filter(t => t.completed && !t.deleted)
     }
@@ -33,13 +41,18 @@ class TodoHistory extends React.Component <ITodoHistoryProps> {
             Date.parse(a))
     }
 
-    constructor(props) {
-        super(props)
-    }
+    togglePage = (currentPage: number) => {
+        this.setState({currentPage})
+    };
+
+    toggleDeletedPage = (deletedCurrentPage: number) => {
+        this.setState({deletedCurrentPage})
+    };
 
     render() {
         const week = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-        const finishedTodoList = this.finishedDates.map(date => {
+        const {currentPage} = this.state;
+        const finishedTodoList = this.finishedDates.slice((currentPage - 1) * 3, currentPage * 3).map(date => {
                 return (
                     <div key={date} className='dailyTodos'>
                         <div className='summary'>
@@ -64,7 +77,8 @@ class TodoHistory extends React.Component <ITodoHistoryProps> {
                 )
             }
         );
-        const deletedTodoList = this.deletedTodoes.map(todo => {
+        const {deletedCurrentPage} = this.state;
+        const deletedTodoList = this.deletedTodoes.slice((deletedCurrentPage - 1) * 15, deletedCurrentPage * 15).map(todo => {
                 return (
                     <TodoHistoryTodoItem key={todo.id} todo={todo} itemType='deleted'/>
                 )
@@ -75,11 +89,42 @@ class TodoHistory extends React.Component <ITodoHistoryProps> {
                 <TabPane tab="已完成任务" key="1">
                     <div className='TodoHistory' id='TodoHistory'>
                         {finishedTodoList}
+                        <div className='Pagination_wrapper'>
+                            <Pagination
+                                size="small"
+                                defaultCurrent={1}
+                                pageSize={3}
+                                hideOnSinglePage={true}
+                                total={Object.keys(this.dailyFinishedTodos).length}
+                                current={this.state.currentPage}
+                                onChange={this.togglePage}/>
+                            <span className='tips'>
+                                总计{
+                                Object.keys(this.dailyFinishedTodos)
+                                    .reduce((a, b) => a + this.dailyFinishedTodos[b].length, 0)
+                            }个任务
+                            </span>
+                        </div>
                     </div>
                 </TabPane>
                 <TabPane tab="已删除任务" key="2">
                     <div className='TodoHistory' id='TodoHistory'>
                         {deletedTodoList}
+                        <div className='Pagination_wrapper'>
+                            <Pagination
+                                size="small"
+                                defaultCurrent={1}
+                                pageSize={15}
+                                hideOnSinglePage={true}
+                                total={Object.keys(this.deletedTodoes).length}
+                                current={this.state.deletedCurrentPage}
+                                onChange={this.toggleDeletedPage}/>
+                            <span className='tips'>
+                                总计{
+                                this.deletedTodoes.length
+                            }个任务
+                            </span>
+                        </div>
                     </div>
                 </TabPane>
             </Tabs>

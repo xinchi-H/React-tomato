@@ -87,7 +87,7 @@ class Statistics extends React.Component<IStatisticsProps, IState> {
     render() {
         return (
             <div className='Statistics' id='Statistics'>
-                <ul ref={ulNode => this.ulNode = ulNode}>
+                <ul className='graph' ref={ulNode => this.ulNode = ulNode}>
                     <li className={this.state.activeId === 0 ? 'active' : ''}
                         onClick={this.toggleActivePane.bind(this, 0)}>
                         <div className='desc'>
@@ -116,11 +116,11 @@ class Statistics extends React.Component<IStatisticsProps, IState> {
                     </li>
                 </ul>
                 {this.state.activeId === 0 ?
-                    <TomatoHistory/>
+                    <TomatoHistory dailyTomatoes={this.dailyTomatoes}/>
                     : null
                 }
                 {this.state.activeId === 1 ?
-                    <TodoHistory/>
+                    <TodoHistory dailyTodos={this.dailyTodos}/>
                     : null
                 }
             </div>
