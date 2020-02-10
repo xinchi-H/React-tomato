@@ -5,9 +5,22 @@
   > header {
     padding: 16px 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    //justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
+    h1{
+      font-size: 16px;
+      font-weight: 400;
+      margin:0;
+    }
+    .userInfo {
+      margin: 0 16px 0 auto;
+    }
+    .logo{
+      height: 35px;
+      margin-left: 16px;
+    }
   }
   >main{
     padding: 16px 0;

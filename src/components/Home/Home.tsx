@@ -8,6 +8,7 @@ import {initTomatoes} from '../../redux/actions/tomatoes';
 import Statistics from "src/components/Statistics/Statistics";
 import axios from 'src/config/axios';
 import history from "../../config/history";
+import logo from 'src/static/logo.png'
 import './Home.scss';
 
 interface IIndexState {
@@ -21,7 +22,6 @@ const logout = () => {
 
 const menu = (
     <Menu>
-        <Menu.Item key="1"><Icon type="user"/>个人设置</Menu.Item>
         <Menu.Item key="2" onClick={logout}><Icon type="logout"/>注销用户</Menu.Item>
     </Menu>
 );
@@ -72,9 +72,10 @@ class Home extends React.Component<any, IIndexState> {
         return (
             <div className="Home" id="Home">
                 <header>
-                    <span className="logo">LOGO</span>
+                        <img className='logo' src={logo} alt=""/>
+                        <h1>番茄土豆</h1>
                     <Dropdown overlay={menu}>
-                        <span>
+                        <span className='userInfo'>
                             {this.state.user && this.state.user.account}
                             <Icon type="down" style={{marginLeft: 8}}/>
                         </span>
@@ -94,9 +95,9 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 });
 
-const mapDispatchToProps ={
+const mapDispatchToProps = {
     initTodos,
     initTomatoes
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
