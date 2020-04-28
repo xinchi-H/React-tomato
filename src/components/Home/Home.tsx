@@ -73,7 +73,7 @@ class Home extends React.Component<any, IIndexState> {
             <div className="Home" id="Home">
                 <header>
                         <img className='logo' src={logo} alt=""/>
-                        <h1>番茄土豆</h1>
+                        <h1>我的番茄闹钟</h1>
                     <Dropdown overlay={menu}>
                         <span className='userInfo'>
                             {this.state.user && this.state.user.account}
