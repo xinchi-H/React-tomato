@@ -11,7 +11,7 @@
     "dayjs": "^1.8.20",
     "gh-pages": "^2.2.0",
     "history": "^4.10.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.1",
